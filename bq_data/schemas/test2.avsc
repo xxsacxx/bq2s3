@@ -1,0 +1,41 @@
+{
+  "type" : "record",
+  "name" : "Root",
+  "fields" : [ {
+    "name" : "event_timestamp",
+    "type" : [ "null", {
+      "type" : "long",
+      "logicalType" : "timestamp-micros"
+    } ]
+  }, {
+    "name" : "user_first_touch",
+    "type" : [ "null", {
+      "type" : "long",
+      "logicalType" : "timestamp-micros"
+    } ]
+  }, {
+    "name" : "main_event",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "location_coordinates",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "Location",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "Label",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "Network",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "UserId",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "firebase_event_origin",
+    "type" : [ "null", "string" ]
+  }, {
+    "name" : "Category",
+    "type" : [ "null", "string" ]
+  } ]
+}
