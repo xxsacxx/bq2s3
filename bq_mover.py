@@ -12,10 +12,11 @@ s3 = boto3.resource('s3')
 
 google_access_key_id = config['bq_mover']['google_access_key_id']
 google_access_key_secret = config['bq_mover']['google_access_key_secret']
-
+gcs_bucket = config['bq_mover']['gcs_bucket']
+aws_bucket = config['bq_mover']['aws_bucket']
 project = config['bq_mover']['project']
 
-def get_gcs_objects(google_access_key_id, google_access_key_secret):
+def get_gcs_objects(google_access_key_id, google_access_key_secret,gcs_bucket,aws_bucket):
         client = boto3.client(
         "s3",
         region_name="auto",
@@ -23,20 +24,19 @@ def get_gcs_objects(google_access_key_id, google_access_key_secret):
         aws_access_key_id=google_access_key_id,
         aws_secret_access_key=google_access_key_secret,
     )
-        response = client.list_objects(Bucket='testbq2s3avro')
+        response = client.list_objects(Bucket=gcs_bucket)
 
         print("Objects:")
         for blob in response["Contents"]:
                 print(blob["Key"])
 
-        bucket = s3.Bucket('klfanalytics')
-        #for obj in bucket.objects.all():
-        #       print(obj.key, obj.last_modified)
-        object = s3.Object('klfanalytics', '2020/03/30/a-*.avro')
+     
+
+        object = s3.Object(aws_bucket, '2020/03/30/a-*.avro')
         f = io.BytesIO()
-        client.download_fileobj("testbq2s3avro","2020/03/30/a.avro",f)
+        client.download_fileobj(gcs_bucket,"2020/03/30/a.avro",f)
         object.put(Body=f.getvalue())
 
 if __name__ == "__main__":
 
-        get_gcs_objects(google_access_key_id,google_access_key_secret)
+        get_gcs_objects(google_access_key_id,google_access_key_secret,gcs_bucket,aws_bucket)
