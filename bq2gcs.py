@@ -6,7 +6,7 @@ config = configparser.ConfigParser()
 config.read('config.ini')
 client = bigquery.Client()
 
-bucket_name = 'testbq2s3avro'
+bucket_name = config['bq2gcs']['gcs_bucket']
 
 project = config['bq2gcs']['project']
 dataset_id = config['bq2gcs']['dataset_id']
