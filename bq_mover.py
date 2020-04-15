@@ -28,16 +28,11 @@ def get_gcs_objects(google_access_key_id, google_access_key_secret,gcs_bucket,aw
     )
         response = client.list_objects(Bucket=gcs_bucket)
 
-        print("Objects:")
         for blob in response["Contents"]:
-                print(blob["Key"])
-
-     
-
-        object = s3.Object(aws_bucket, str(datetime.today().strftime('%Y/%m/%d'))+'/a.avro')
-        f = io.BytesIO()
-        client.download_fileobj(gcs_bucket,str(datetime.today().strftime('%Y/%m/%d'))+"/a.avro",f)
-        object.put(Body=f.getvalue())
+            object = s3.Object(aws_bucket,str(blob["Key"]))
+            f = io.BytesIO()
+            client.download_fileobj(gcs_bucket,str(blob["Key"]),f)
+            object.put(Body=f.getvalue())
 
 if __name__ == "__main__":
 
