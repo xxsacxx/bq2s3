@@ -1,7 +1,7 @@
 
 from google.cloud import bigquery
 import configparser
-from datetime import datetime
+from datetime import  datetime,date,timedelta
 
 config = configparser.ConfigParser()
 config.read('config.ini')
